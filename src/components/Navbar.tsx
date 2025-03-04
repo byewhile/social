@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import Image from "next/image";
-import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+// import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
     return (
@@ -32,7 +32,7 @@ export default function Navbar() {
             </div>
 
             <div className="w-[30%] flex items-center gap-4 xl:gap-8 justify-end">
-                <ClerkLoading>
+                {/* <ClerkLoading>
                     <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite]" />
                 </ClerkLoading>
                 <ClerkLoaded>
@@ -55,7 +55,7 @@ export default function Navbar() {
                             <Link href="/sign-in">Login/Register</Link>
                         </div>
                     </SignedOut>
-                </ClerkLoaded>
+                </ClerkLoaded> */}
                 <MobileMenu />
             </div>
         </header>
