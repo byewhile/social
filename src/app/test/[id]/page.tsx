@@ -22,7 +22,8 @@ export default function page() {
     const sendData = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await axios.post("https://byewhile.ru/db.php", {name: data});
+            const res = await axios.post("https://byewhile.ru/db.php", {name: data});
+            console.log(res);
         } catch (err) {
             console.log(err);
         }
