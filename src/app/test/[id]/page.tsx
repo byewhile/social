@@ -1,33 +1,53 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { useParams } from "next/navigation";
 import axios from "axios"
+import { dataType } from "@/types/types";
 
 export default function page() {
-    const [data, setData]: any = useState([]);
+    const [name, setName] = useState("");
+    const [data, setData] = useState([]);
     const { id } = useParams();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get("https://byewhile.ru/db.php");
-                setData(res.data);
-            } catch(err) {
-                console.log(err);
-            }
-            return true;
+    const fetchData = async () => {
+        try {
+            const res = await axios.get("https://byewhile.ru/db.php");
+            setData(res.data);
+        } catch(err) {
+            console.log(err);
         }
-        fetchData()
-    }, [])
+    }
+
+    const sendData = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            await axios.post("https://byewhile.ru/db.php", {name: data});
+        } catch (err) {
+            console.log(err);
+        }
+        setName("");
+        fetchData();
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div>
-            {data.map((data: any) => {
-                return <div key={data.id}>
-                    <p>{data.id}</p>
-                    <p>{data.name}</p>
-                </div>
+            <form onSubmit={sendData}>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <input type="submit" />
+            </form>
+
+            {data.map((data: dataType) => {
+                return (
+                    <div key={data.id}>
+                        <p>{data.id}</p>
+                        <p>{data.name}</p>
+                    </div>
+                );
             })}
             {id}
         </div>
